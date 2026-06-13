@@ -1,0 +1,10 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /englishAI/
+
+# Cho phép truy cập file và folder thực tế (CSS, JS, images)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Tất cả request còn lại về index.php
+RewriteRule ^(.*)$ index.php [QSA,L]

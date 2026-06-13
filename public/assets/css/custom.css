@@ -1,0 +1,211 @@
+/* =====================================================
+   EnglishAI Custom Override – kết hợp với templatemo
+   ===================================================== */
+
+/* ── Màu sắc badge cấp độ ── */
+.badge-basic    { background:#00BFA6; color:#fff; }
+.badge-advanced { background:#F9A826; color:#fff; }
+.badge-premium  { background:#536DFE; color:#fff; }
+
+/* ── Lesson card ── */
+.lesson-card {
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  transition:transform .25s, box-shadow .25s;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.lesson-card:hover { transform:translateY(-5px); box-shadow:0 12px 32px rgba(0,0,0,.13); }
+.lesson-card-header { padding:1.1rem 1.1rem .7rem; min-height:88px; position:relative; }
+.lesson-card-header.level-basic    { background:linear-gradient(135deg,#00BFA6,#007a69); }
+.lesson-card-header.level-advanced { background:linear-gradient(135deg,#F9A826,#c47e00); }
+.lesson-card-header.level-premium  { background:linear-gradient(135deg,#536DFE,#2a45cc); }
+.lesson-card-body { flex:1; display:flex; flex-direction:column; padding:1rem; }
+.lock-overlay {
+  position:absolute;inset:0;background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;
+}
+
+/* ── Vocabulary card ── */
+.vocab-card {
+  background:#fff;
+  border-radius:var(--border-radius-small,10px);
+  border:1px solid #e8f4f3;
+  overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.vocab-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,.09); }
+.vocab-card-header { padding:.75rem 1rem; background:#f0f8ff; border-bottom:1px solid #e8f4f3; }
+.vocab-card-body { padding:.75rem 1rem; }
+.blur-text { filter:blur(4px); }
+
+/* ── Flashcard ── */
+.flashcard-wrap  { width:340px;max-width:90vw;height:220px;perspective:1000px;cursor:pointer; }
+.flashcard-inner { width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s; }
+.flashcard-front, .flashcard-back {
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:20px;box-shadow:0 8px 28px rgba(0,0,0,.12);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;
+}
+.flashcard-front { background:linear-gradient(135deg,#13547a,#80d0c7); }
+.flashcard-back  { background:linear-gradient(135deg,#00BFA6,#007a69);transform:rotateY(180deg); }
+.fc-word         { color:#fff;font-size:2rem;font-weight:800; }
+.fc-pronunciation{ color:rgba(255,255,255,.75);font-size:.95rem; }
+.fc-translation  { color:#fff;font-weight:700;font-size:1.25rem; }
+.fc-definition, .fc-example { color:rgba(255,255,255,.85);font-size:.88rem; }
+
+/* ── Auth pages ── */
+.auth-card {
+  background:#fff;
+  border-radius:20px;
+  padding:2.2rem;
+  box-shadow:0 8px 32px rgba(19,84,122,.12);
+  max-width:460px;
+  margin:auto;
+}
+.divider { display:flex;align-items:center;gap:.75rem;margin:1rem 0; }
+.divider::before,.divider::after { content:'';flex:1;height:1px;background:#e0f0ef; }
+.divider span { color:#999;font-size:.85rem; }
+
+/* ── Dashboard stats ── */
+.stat-card {
+  background:#fff;border-radius:16px;padding:1.25rem;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+  border-left:4px solid var(--secondary-color,#80d0c7);
+}
+.welcome-banner {
+  background:linear-gradient(135deg,#13547a 0%,#80d0c7 100%);
+  border-radius:20px; padding:1.5rem 2rem;
+}
+
+/* ── AI chat ── */
+.ai-sidebar   { background:#0f2535;overflow-y:auto; }
+.ai-chat-header { background:#fff;border-bottom:1px solid #e0f0ef;padding:.75rem 1.2rem; }
+.ai-avatar {
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,#13547a,#80d0c7);
+  display:flex;align-items:center;justify-content:center;
+}
+.chat-messages { background:#f0f8ff; }
+.message { margin-bottom:1rem; }
+.user-message      { display:flex;flex-direction:column;align-items:flex-end; }
+.assistant-message { display:flex;flex-direction:column;align-items:flex-start; }
+.message-bubble {
+  max-width:76%;padding:.75rem 1rem;border-radius:16px;
+  font-size:.9rem;line-height:1.6;
+}
+.user-message .message-bubble {
+  background:#13547a;color:#fff;border-bottom-right-radius:4px;
+}
+.assistant-message .message-bubble {
+  background:#fff;border:1px solid #d0eae8;border-bottom-left-radius:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.message-time { font-size:.7rem;color:#999;margin-top:.2rem;padding:0 .25rem; }
+.chat-input-area { background:#fff;border-top:1px solid #e0f0ef;padding:.85rem; }
+.suggestion-btn {
+  display:block;width:100%;text-align:left;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:.3rem .7rem;font-size:.78rem;
+  margin-bottom:.35rem;cursor:pointer;transition:background .15s;
+}
+.suggestion-btn:hover { background:rgba(255,255,255,.18);color:#fff; }
+.typing-dots { display:flex;gap:5px;padding:.3rem 0; }
+.typing-dots span {
+  width:8px;height:8px;border-radius:50%;background:#80d0c7;
+  animation:tdBounce 1.2s infinite;
+}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes tdBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+
+/* ── Pricing ── */
+.pricing-card {
+  background:#fff;border-radius:20px;
+  border:2px solid #e0f0ef;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.pricing-card:hover,.pricing-popular {
+  transform:translateY(-6px);
+  box-shadow:0 16px 40px rgba(19,84,122,.15);
+}
+.pricing-popular { border-color:#80d0c7; }
+.popular-badge {
+  position:absolute;top:1rem;right:1rem;
+  background:#F9A826;color:#fff;
+  padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:700;
+}
+.current-plan-badge {
+  position:absolute;top:1rem;left:1rem;
+  background:#00BFA6;color:#fff;
+  padding:.2rem .6rem;border-radius:999px;font-size:.72rem;font-weight:700;
+}
+
+/* ── Page header bar ── */
+.page-header {
+  background:linear-gradient(15deg,#13547a 0%,#80d0c7 100%);
+  padding:2.5rem 0 2rem;
+}
+
+/* ── Lesson content area ── */
+.lesson-content h4,.lesson-content h5 { color:#13547a; }
+.lesson-content strong { color:#13547a; }
+.lesson-content table { font-size:.9rem; }
+.lesson-detail-header {
+  background:linear-gradient(135deg,#13547a,#1a6e96);
+  padding:1.5rem 1.75rem;
+}
+.ai-lesson-cta {
+  background:linear-gradient(135deg,#0f2535,#13547a);
+  border-radius:12px;
+}
+
+/* ── Exercise ── */
+.option-label { cursor:pointer;transition:background .15s;border-radius:8px; }
+.option-label:hover { background:#f0f8ff; }
+.option-label:has(input:checked) { background:#e0f4f2;border-color:#80d0c7 !important; }
+.result-pass { background:linear-gradient(135deg,#f0fdf9,#d1f5ee);border-radius:12px; }
+.result-fail { background:linear-gradient(135deg,#fff5f5,#ffe0e0);border-radius:12px; }
+.result-score { font-size:3rem;font-weight:800;color:#13547a; }
+
+/* ── Filter bar ── */
+.filter-bar { background:#fff;border:1px solid #d0eae8;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04); }
+
+/* ── Notification ── */
+.notif-item.unread { background:#f0f8ff; }
+
+/* ── Avatar ── */
+.avatar-sm {
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,#13547a,#80d0c7);
+  color:#fff;display:inline-flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;flex-shrink:0;
+}
+
+/* ── Misc ── */
+.btn-white { background:#fff;color:#13547a;border:1px solid #fff; }
+.btn-white:hover { background:#e0f4f2; }
+code { color:#13547a;background:#f0f8ff;padding:.1em .35em;border-radius:.3rem; }
+.level-section-header { border-radius:12px; }
+
+/* ── Navbar fixed + overlap fix ── */
+.sticky-wrapper {
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  background: var(--secondary-color, #1a1a2e);
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+}
+
+/* Đẩy toàn bộ nội dung xuống dưới navbar (~72px) */
+body { padding-top: 72px; }
+
+/* Hero section đã có padding-top:150px - chỉ cần bù lại 72px bị body thêm */
+.hero-section { margin-top: -72px; }
+
+/* Các trang game có background riêng - đẩy nội dung đầu tiên xuống đúng */
+.gh { margin-top: 0; }
