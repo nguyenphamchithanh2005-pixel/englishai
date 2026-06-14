@@ -10,12 +10,15 @@ class TroChoiCtrl {
     }
     public function doTu(): void {
         global $conn; requireLogin(); $uid=(int)$_SESSION['user_id']; $today=date('Y-m-d');
-        $total=(int)$conn->query("SELECT COUNT(*) c FROM vocabulary WHERE LENGTH(word)=5")->fetch_assoc()['c'];
+        $where = "LENGTH(word)=5 AND word REGEXP '^[a-zA-Z]+$'";
+        $total=(int)$conn->query("SELECT COUNT(*) c FROM vocabulary WHERE $where")->fetch_assoc()['c'];
         if(!$total)redirect(BASE_URL.'/tro-choi');
         $offset=abs(crc32($today))%$total;
-        $tu=$conn->query("SELECT word,translation FROM vocabulary WHERE LENGTH(word)=5 LIMIT 1 OFFSET $offset")->fetch_assoc();
+        $tu=$conn->query("SELECT word,translation FROM vocabulary WHERE $where ORDER BY id LIMIT 1 OFFSET $offset")->fetch_assoc();
+        if(!$tu)redirect(BASE_URL.'/tro-choi');
         $daDaHom=$conn->query("SELECT id FROM game_scores WHERE user_id=$uid AND game_type='wordle' AND DATE(played_at)='$today'")->num_rows>0;
-        $r=$conn->query("SELECT UPPER(word) w FROM vocabulary WHERE LENGTH(word)=5"); $ds=[];
+        $r=$conn->query("SELECT UPPER(word) w FROM vocabulary WHERE $where");
+        $ds=[];
         while($row=$r->fetch_assoc())$ds[]=$row['w'];
         render('tro_choi/do_tu',['pageTitle'=>'Word Puzzle – '.SITE_NAME,'tuBiMat'=>strtoupper($tu['word']),'nghia'=>$tu['translation'],'daDaHom'=>$daDaHom,'danhSachTu'=>$ds]);
     }

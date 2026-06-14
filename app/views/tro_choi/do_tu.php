@@ -1,40 +1,24 @@
 <?php
-global $conn;
+/**
+ * View: tro_choi/do_tu.php
+ * Nhận từ controller TroChoiCtrl::doTu():
+ *   $tuBiMat, $nghia, $daDaHom, $danhSachTu
+ */
 requireLogin();
-$uid   = (int)$_SESSION['user_id'];
 
-// Đảm bảo có từ 5 chữ cái
-// Danh sách từ tiếng Anh 5 chữ cái dự phòng
-$fallbackWords = [
-    ['word'=>'table','translation'=>'cái bàn'],['word'=>'chair','translation'=>'cái ghế'],
-    ['word'=>'heart','translation'=>'trái tim'],['word'=>'water','translation'=>'nước'],
-    ['word'=>'light','translation'=>'ánh sáng'],['word'=>'house','translation'=>'ngôi nhà'],
-    ['word'=>'music','translation'=>'âm nhạc'],['word'=>'beach','translation'=>'bãi biển'],
-    ['word'=>'plant','translation'=>'cây cối'],['word'=>'clock','translation'=>'đồng hồ'],
-    ['word'=>'bread','translation'=>'bánh mì'],['word'=>'night','translation'=>'ban đêm'],
-    ['word'=>'phone','translation'=>'điện thoại'],['word'=>'brain','translation'=>'não bộ'],
-    ['word'=>'river','translation'=>'con sông'],['word'=>'cloud','translation'=>'đám mây'],
-    ['word'=>'storm','translation'=>'cơn bão'],['word'=>'sweet','translation'=>'ngọt ngào'],
-    ['word'=>'smile','translation'=>'nụ cười'],['word'=>'dream','translation'=>'giấc mơ'],
-    ['word'=>'stone','translation'=>'viên đá'],['word'=>'horse','translation'=>'con ngựa'],
-    ['word'=>'shirt','translation'=>'áo sơ mi'],['word'=>'blood','translation'=>'máu'],
-    ['word'=>'floor','translation'=>'sàn nhà'],['word'=>'space','translation'=>'không gian'],
-    ['word'=>'sugar','translation'=>'đường mía'],['word'=>'tiger','translation'=>'con hổ'],
-    ['word'=>'flame','translation'=>'ngọn lửa'],['word'=>'grass','translation'=>'cỏ xanh'],
-];
+$secret      = $tuBiMat      ?? 'HELLO';
+$meaning     = $nghia        ?? '';
+$daDaHom     = $daDaHom      ?? false;
+$danhSachTu  = $danhSachTu   ?? [];
 
-// Random từ mỗi lần chơi (không cố định theo ngày)
-$wordRow = $conn->query("SELECT word,translation FROM vocabulary WHERE LENGTH(word)=5 AND word REGEXP '^[a-zA-Z]+$' ORDER BY RAND() LIMIT 1")->fetch_assoc();
-if (!$wordRow) {
-    $wordRow = $fallbackWords[array_rand($fallbackWords)];
+$best = null;
+if (isset($conn)) {
+    $uid  = (int)$_SESSION['user_id'];
+    $best = $conn->query("SELECT score, JSON_UNQUOTE(JSON_EXTRACT(details,'$.attempts')) att FROM game_scores WHERE user_id=$uid AND game_type='wordle' AND score>0 ORDER BY score DESC LIMIT 1")->fetch_assoc();
 }
-$secret  = strtoupper($wordRow['word']);
-$meaning = $wordRow['translation'];
-$played  = false; // Cho phép chơi nhiều lần
 
-$best = $conn->query("SELECT score, JSON_UNQUOTE(JSON_EXTRACT(details,'$.attempts')) att FROM game_scores WHERE user_id=$uid AND game_type='wordle' AND score>0 ORDER BY score DESC LIMIT 1")->fetch_assoc();
+include ROOT.'/app/views/layout/header.php';
 ?>
-<?php include ROOT.'/app/views/layout/header.php'; ?>
 <style>
 :root{--c-correct:#22c55e;--c-present:#f59e0b;--c-absent:#4b5563;--cell:clamp(48px,12vw,64px);}
 body{background:#fafafa;}
@@ -68,16 +52,16 @@ body{background:#fafafa;}
 .k.absent{background:var(--c-absent);color:#fff;}
 .result-box{background:#fff;border:1.5px solid #e5e7eb;border-radius:16px;padding:1.4rem;margin-top:1.2rem;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.06);}
 .share-emoji{font-size:1.4rem;line-height:1.5;letter-spacing:2px;margin:.8rem 0;}
-.played-alert{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:.75rem 1rem;text-align:center;font-size:.9rem;color:#166534;margin-bottom:1rem;}
 </style>
+
 <div class="wp">
   <div class="wp-head">
     <div class="wp-title">🟩 Đoán Từ</div>
     <div class="wp-date">Đoán từ 5 chữ cái · 6 lần thử · Mỗi ván từ khác nhau</div>
-    <?php if ($best): ?><div class="best-chip">🏆 Kỷ lục: <?= $best['score'] ?> điểm · <?= $best['att'] ?>/6 lần</div><?php endif; ?>
+    <?php if ($best): ?>
+    <div class="best-chip">🏆 Kỷ lục: <?= $best['score'] ?> điểm · <?= $best['att'] ?>/6 lần</div>
+    <?php endif; ?>
   </div>
-
-  <?php // Cho phép chơi nhiều lần - không hiển thị thông báo đã chơi ?>
 
   <div class="text-center">
     <span class="hint-btn" id="hintBtn">💡 <span id="hintTxt">Nhấn xem gợi ý nghĩa</span></span>
@@ -117,52 +101,133 @@ body{background:#fafafa;}
 </div>
 
 <script>
-const SECRET=<?=json_encode($secret)?>,MEANING=<?=json_encode($meaning)?>,DONE=false;
-let row=0,col=0,guess='',over=false;
-const kst={},hist=[];
+const SECRET  = <?= json_encode($secret) ?>;
+const MEANING = <?= json_encode($meaning) ?>;
+const WORD_LIST = <?= json_encode(array_values($danhSachTu)) ?>;
 
-document.getElementById('hintBtn').onclick=()=>{ document.getElementById('hintTxt').textContent='Nghĩa: '+MEANING; };
-function cel(r,c){return document.getElementById('c'+r+c);}
-function msg(t,col){const m=document.getElementById('msg');m.textContent=t;m.style.color=col||'#111';}
+let row=0, col=0, guess='', over=false;
+const kst={}, hist=[];
 
-function add(l){if(over||col>=5)return;guess+=l;const c=cel(row,col);c.textContent=l;c.classList.add('filled');col++;}
-function del(){if(over||col<=0)return;col--;guess=guess.slice(0,-1);const c=cel(row,col);c.textContent='';c.classList.remove('filled');}
-function shakeRow(){for(let c=0;c<5;c++){const e=cel(row,c);e.classList.remove('shake');void e.offsetWidth;e.classList.add('shake');}}
+document.getElementById('hintBtn').onclick = () => {
+  document.getElementById('hintTxt').textContent = 'Nghĩa: ' + MEANING;
+};
 
-function submit(){
-  if(over)return;
-  if(col<5){msg('Từ phải có 5 chữ cái!','#ef4444');shakeRow();return;}
-  const g=guess.toUpperCase();
-  const res=Array(5).fill('absent'),used=Array(5).fill(false);
-  for(let i=0;i<5;i++)if(g[i]===SECRET[i]){res[i]='correct';used[i]=true;}
-  for(let i=0;i<5;i++){if(res[i]==='correct')continue;for(let j=0;j<5;j++){if(!used[j]&&g[i]===SECRET[j]){res[i]='present';used[j]=true;break;}}}
-  for(let i=0;i<5;i++){const el=cel(row,i);const delay=i*110;setTimeout(()=>{el.classList.add('flip');setTimeout(()=>{el.classList.add(res[i]);el.classList.remove('flip');const k=g[i];if(!kst[k]||res[i]==='correct'||(res[i]==='present'&&kst[k]==='absent'))kst[k]=res[i];if(i===4)updateKb();},230);},delay);}
-  hist.push({g,res});
-  const won=g===SECRET;
-  setTimeout(()=>{if(won){over=true;end(true);}else{row++;col=0;guess='';if(row>=6){over=true;end(false);}else msg('');}},5*110+350);
+function cel(r,c){ return document.getElementById('c'+r+c); }
+function msg(t,color){ const m=document.getElementById('msg'); m.textContent=t; m.style.color=color||'#111'; }
+
+function add(l){
+  if(over || col>=5) return;
+  guess += l;
+  const c = cel(row, col);
+  c.textContent = l;
+  c.classList.add('filled');
+  col++;
 }
 
-function updateKb(){document.querySelectorAll('.k[data-k]').forEach(b=>{const k=b.dataset.k;b.className='k'+(b.classList.contains('wide')?' wide':'');if(kst[k])b.classList.add(kst[k]);});}
+function del(){
+  if(over || col<=0) return;
+  col--;
+  guess = guess.slice(0,-1);
+  const c = cel(row, col);
+  c.textContent = '';
+  c.classList.remove('filled');
+}
+
+function shakeRow(){
+  for(let c=0;c<5;c++){
+    const e=cel(row,c);
+    e.classList.remove('shake');
+    void e.offsetWidth;
+    e.classList.add('shake');
+  }
+}
+
+function submit(){
+  if(over) return;
+  if(col<5){ msg('Từ phải có 5 chữ cái!','#ef4444'); shakeRow(); return; }
+  const g = guess.toUpperCase();
+
+  // Kiểm tra từ hợp lệ (nếu có danh sách)
+  if(WORD_LIST.length > 0 && !WORD_LIST.includes(g)){
+    msg('Từ không có trong danh sách!','#ef4444');
+    shakeRow();
+    return;
+  }
+
+  const res=Array(5).fill('absent'), used=Array(5).fill(false);
+  for(let i=0;i<5;i++) if(g[i]===SECRET[i]){ res[i]='correct'; used[i]=true; }
+  for(let i=0;i<5;i++){
+    if(res[i]==='correct') continue;
+    for(let j=0;j<5;j++){
+      if(!used[j] && g[i]===SECRET[j]){ res[i]='present'; used[j]=true; break; }
+    }
+  }
+
+  for(let i=0;i<5;i++){
+    const el=cel(row,i);
+    const delay=i*110;
+    setTimeout(()=>{
+      el.classList.add('flip');
+      setTimeout(()=>{
+        el.classList.add(res[i]);
+        el.classList.remove('flip');
+        const k=g[i];
+        if(!kst[k] || res[i]==='correct' || (res[i]==='present' && kst[k]==='absent')) kst[k]=res[i];
+        if(i===4) updateKb();
+      }, 230);
+    }, delay);
+  }
+
+  hist.push({g, res});
+  const won = (g === SECRET);
+  setTimeout(()=>{
+    if(won){ over=true; end(true); }
+    else{ row++; col=0; guess=''; if(row>=6){ over=true; end(false); } else msg(''); }
+  }, 5*110+350);
+}
+
+function updateKb(){
+  document.querySelectorAll('.k[data-k]').forEach(b=>{
+    const k=b.dataset.k;
+    b.className = 'k' + (b.classList.contains('wide') ? ' wide' : '');
+    if(kst[k]) b.classList.add(kst[k]);
+  });
+}
 
 function end(won){
   const em={'correct':'🟩','present':'🟨','absent':'⬛'};
-  const share=hist.map(h=>h.res.map(r=>em[r]).join('')).join('\n');
-  const score=won?(7-row)*100:0;
-  document.getElementById('resEmoji').textContent=won?'🎉':'😢';
-  document.getElementById('resTitle').textContent=won?'Tuyệt vời! Đoán đúng rồi!':'Hết lượt thử rồi!';
-  document.getElementById('resSub').textContent='Từ bí mật: '+SECRET+' = '+MEANING;
-  document.getElementById('shareEmoji').textContent=share;
+  const share = hist.map(h=>h.res.map(r=>em[r]).join('')).join('\n');
+  const score = won ? (7-row)*100 : 0;
+  document.getElementById('resEmoji').textContent = won ? '🎉' : '😢';
+  document.getElementById('resTitle').textContent = won ? 'Tuyệt vời! Đoán đúng rồi!' : 'Hết lượt thử rồi!';
+  document.getElementById('resSub').textContent = 'Từ bí mật: ' + SECRET + ' = ' + MEANING;
+  document.getElementById('shareEmoji').textContent = share;
   document.getElementById('res').classList.remove('d-none');
-  msg(won?'🎉 Xuất sắc!':'Từ đúng là: '+SECRET,won?'#16a34a':'#ef4444');
-  fetch('<?=BASE_URL?>/api/luu-diem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'wordle',score,details:{won,attempts:won?row+1:6,word:SECRET}})});
+  msg(won ? '🎉 Xuất sắc!' : 'Từ đúng là: ' + SECRET, won ? '#16a34a' : '#ef4444');
+  fetch('<?= BASE_URL ?>/api/luu-diem', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({type:'wordle', score, details:{won, attempts: won ? row+1 : 6, word: SECRET}})
+  });
 }
 
-window._shareHist=()=>{const em={'correct':'🟩','present':'🟨','absent':'⬛'};return hist.map(h=>h.res.map(r=>em[r]).join('')).join('\n');};
-function copyShare(){navigator.clipboard?.writeText('🟩 Đoán Từ '+new Date().toLocaleDateString('vi-VN')+'\n'+hist.length+'/6\n\n'+window._shareHist()).then(()=>msg('✅ Đã sao chép!','#16a34a'));}
-
-if(!DONE){
-  document.addEventListener('keydown',e=>{if(e.ctrlKey||e.altKey||e.metaKey)return;if(e.key==='Enter')submit();else if(e.key==='Backspace')del();else if(/^[a-zA-Z]$/.test(e.key))add(e.key.toUpperCase());});
+function copyShare(){
+  navigator.clipboard?.writeText(
+    '🟩 Đoán Từ ' + new Date().toLocaleDateString('vi-VN') + '\n' + hist.length + '/6\n\n' + hist.map(h=>h.res.map(r=>({'correct':'🟩','present':'🟨','absent':'⬛'})[r]).join('')).join('\n')
+  ).then(()=>msg('✅ Đã sao chép!','#16a34a'));
 }
-document.querySelectorAll('.k').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.k;if(k==='ENTER')submit();else if(k==='BACK')del();else add(k);}));
+
+document.addEventListener('keydown', e=>{
+  if(e.ctrlKey||e.altKey||e.metaKey) return;
+  if(e.key==='Enter') submit();
+  else if(e.key==='Backspace') del();
+  else if(/^[a-zA-Z]$/.test(e.key)) add(e.key.toUpperCase());
+});
+document.querySelectorAll('.k').forEach(b=>b.addEventListener('click',()=>{
+  const k=b.dataset.k;
+  if(k==='ENTER') submit();
+  else if(k==='BACK') del();
+  else add(k);
+}));
 </script>
 <?php include ROOT.'/app/views/layout/footer.php'; ?>
