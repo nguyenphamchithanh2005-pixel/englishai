@@ -1,4 +1,4 @@
-﻿-- ================================================
+-- ================================================
 -- EnglishAI - Cơ sở dữ liệu học tiếng Anh tích hợp AI
 -- ================================================
 
@@ -1272,8 +1272,6 @@ FROM lessons l WHERE l.slug='cleft-sentences';
 -- ============================================================
 
 INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, translation, level, category) VALUES
-
--- ===== CƠ BẢN – CHÀO HỎI =====
 ('good morning','/ɡʊd ˈmɔːrnɪŋ/','Greeting used in the morning','Good morning! Did you sleep well?','Chào buổi sáng','basic','Greetings'),
 ('good afternoon','/ɡʊd ˌæftərˈnuːn/','Greeting used in the afternoon','Good afternoon, everyone!','Chào buổi chiều','basic','Greetings'),
 ('good evening','/ɡʊd ˈiːvnɪŋ/','Greeting used in the evening','Good evening! Welcome.','Chào buổi tối','basic','Greetings'),
@@ -1286,8 +1284,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('pardon','/ˈpɑːrdən/','Ask someone to repeat','Pardon? I did not catch that.','Xin lỗi, bạn nói gì?','basic','Greetings'),
 ('you are welcome','/juː ɑːr ˈwelkəm/','Response to thank you','You are welcome!','Không có gì','basic','Greetings'),
 ('congratulations','/kənˌɡrætʃʊˈleɪʃənz/','Expression of praise for achievement','Congratulations on your graduation!','Chúc mừng','basic','Greetings'),
-
--- ===== CƠ BẢN – GIA ĐÌNH =====
 ('family','/ˈfæmɪli/','A group of related people','I love my family.','Gia đình','basic','Family'),
 ('father','/ˈfɑːðər/','A male parent','My father is a doctor.','Cha, bố','basic','Family'),
 ('mother','/ˈmʌðər/','A female parent','My mother cooks delicious food.','Mẹ','basic','Family'),
@@ -1303,8 +1299,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('cousin','/ˈkʌzən/','Child of your aunt or uncle','I grew up with my cousins.','Anh/chị/em họ','basic','Family'),
 ('nephew','/ˈnefjuː/','Brother''s or sister''s son','My nephew is very smart.','Cháu trai','basic','Family'),
 ('niece','/niːs/','Brother''s or sister''s daughter','My niece loves dancing.','Cháu gái','basic','Family'),
-
--- ===== CƠ BẢN – MÀU SẮC =====
 ('red','/red/','The color of blood','She wore a red dress.','Màu đỏ','basic','Colors'),
 ('blue','/bluː/','The color of the sky','The sky is so blue today.','Màu xanh dương','basic','Colors'),
 ('green','/ɡriːn/','The color of grass','The forest is deep green.','Màu xanh lá','basic','Colors'),
@@ -1318,8 +1312,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('grey','/ɡreɪ/','Between black and white','It was a grey, cloudy day.','Màu xám','basic','Colors'),
 ('silver','/ˈsɪlvər/','A shiny grey-white color','She has silver hair.','Màu bạc','basic','Colors'),
 ('gold','/ɡoʊld/','A shiny yellow color like gold metal','She wore a gold necklace.','Màu vàng kim','basic','Colors'),
-
--- ===== CƠ BẢN – ĐỒ ĂN & UỐNG =====
 ('rice','/raɪs/','A common grain, staple in Asia','Vietnamese people eat rice daily.','Cơm, gạo','basic','Food'),
 ('noodles','/ˈnuːdəlz/','Long thin strips of pasta','I love pho noodle soup.','Mì, bún','basic','Food'),
 ('bread','/bred/','Baked food from flour','I have toast for breakfast.','Bánh mì','basic','Food'),
@@ -1344,8 +1336,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('ingredient','/ɪnˈɡriːdiənt/','A component of a recipe','The main ingredient is garlic.','Nguyên liệu','basic','Food'),
 ('restaurant','/ˈrestrɒnt/','A place where meals are served','Let''s go to that new restaurant.','Nhà hàng','basic','Food'),
 ('menu','/ˈmenjuː/','A list of dishes available','Can I see the menu, please?','Thực đơn','basic','Food'),
-
--- ===== CƠ BẢN – NGHỀ NGHIỆP =====
 ('doctor','/ˈdɒktər/','A person who treats sick people','She wants to become a doctor.','Bác sĩ','basic','Occupations'),
 ('nurse','/nɜːrs/','A person who cares for patients','The nurse checked his blood pressure.','Y tá','basic','Occupations'),
 ('teacher','/ˈtiːtʃər/','A person who teaches','My English teacher is very patient.','Giáo viên','basic','Occupations'),
@@ -1366,8 +1356,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('scientist','/ˈsaɪəntɪst/','A person who studies science','The scientist made a discovery.','Nhà khoa học','basic','Occupations'),
 ('artist','/ˈɑːrtɪst/','A person who creates art','The artist painted beautiful portraits.','Nghệ sĩ, họa sĩ','basic','Occupations'),
 ('musician','/mjuːˈzɪʃən/','A person who plays music','She is a talented musician.','Nhạc sĩ','basic','Occupations'),
-
--- ===== CƠ BẢN – PHƯƠNG TIỆN =====
 ('car','/kɑːr/','A motor vehicle with four wheels','She drives to work every day.','Ô tô','basic','Transportation'),
 ('bus','/bʌs/','A large vehicle for passengers','I take the bus to school.','Xe buýt','basic','Transportation'),
 ('motorcycle','/ˈmoʊtərsaɪkəl/','A two-wheeled motor vehicle','Most people in Vietnam ride motorcycles.','Xe máy','basic','Transportation'),
@@ -1380,8 +1368,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('traffic jam','/ˈtræfɪk dʒæm/','When traffic stops or slows greatly','I was stuck in a traffic jam.','Kẹt xe','basic','Transportation'),
 ('driving licence','/ˈdraɪvɪŋ ˈlaɪsəns/','A permit to drive','You need a licence to drive.','Bằng lái xe','basic','Transportation'),
 ('petrol/gas','/ˈpetrəl/','Fuel for vehicles','The car needs petrol.','Xăng','basic','Transportation'),
-
--- ===== CƠ BẢN – THỂ THAO =====
 ('football','/ˈfʊtbɔːl/','A team sport played with a ball','Football is the most popular sport.','Bóng đá','basic','Sports'),
 ('basketball','/ˈbɑːskɪtbɔːl/','Sport where players score in a basket','He plays basketball every weekend.','Bóng rổ','basic','Sports'),
 ('swimming','/ˈswɪmɪŋ/','Moving through water by body movement','Swimming is great exercise.','Bơi lội','basic','Sports'),
@@ -1392,8 +1378,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('cycling','/ˈsaɪklɪŋ/','Riding a bicycle for sport/exercise','Cycling is eco-friendly.','Đạp xe','basic','Sports'),
 ('yoga','/ˈjoʊɡə/','Mind-body exercise from India','She does yoga every morning.','Yoga','basic','Sports'),
 ('gym','/dʒɪm/','A place for physical exercise','He goes to the gym three times a week.','Phòng tập thể dục','basic','Sports'),
-
--- ===== CƠ BẢN – THỜI TIẾT =====
 ('sunny','/ˈsʌni/','Bright with sunlight','It is a warm, sunny day.','Trời nắng','basic','Weather'),
 ('cloudy','/ˈklaʊdi/','Covered with clouds','It was cloudy and cold.','Trời nhiều mây','basic','Weather'),
 ('rainy','/ˈreɪni/','Having a lot of rain','I love rainy days.','Trời mưa','basic','Weather'),
@@ -1408,8 +1392,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('umbrella','/ʌmˈbrelə/','Device to protect from rain','Don''t forget your umbrella.','Ô, dù','basic','Weather'),
 ('snow','/snoʊ/','Frozen water that falls as flakes','It snows in Sapa in winter.','Tuyết','basic','Weather'),
 ('fog','/fɒɡ/','Thick mist close to ground','The fog made driving dangerous.','Sương mù','basic','Weather'),
-
--- ===== CƠ BẢN – CƠ THỂ NGƯỜI =====
 ('head','/hed/','The top part of the body','She shook her head.','Đầu','basic','Body'),
 ('hair','/her/','Strands growing from the head','She has long curly hair.','Tóc','basic','Body'),
 ('eye','/aɪ/','The organ for seeing','He has beautiful blue eyes.','Mắt','basic','Body'),
@@ -1425,8 +1407,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('shoulder','/ˈʃoʊldər/','The joint connecting arm to body','She has strong shoulders.','Vai','basic','Body'),
 ('knee','/niː/','The joint in the middle of the leg','He hurt his knee playing football.','Đầu gối','basic','Body'),
 ('finger','/ˈfɪŋɡər/','One of the digits on the hand','She wears a ring on her finger.','Ngón tay','basic','Body'),
-
--- ===== CƠ BẢN – NHÀ Ở =====
 ('bedroom','/ˈbedruːm/','A room for sleeping','My bedroom is on the second floor.','Phòng ngủ','basic','Home'),
 ('kitchen','/ˈkɪtʃɪn/','A room for preparing food','She was cooking in the kitchen.','Nhà bếp','basic','Home'),
 ('bathroom','/ˈbæθruːm/','A room with a bath and toilet','The bathroom is down the hall.','Phòng tắm','basic','Home'),
@@ -1442,8 +1422,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('roof','/ruːf/','The top covering of a building','The roof needs repairing.','Mái nhà','basic','Home'),
 ('wall','/wɔːl/','A vertical surface dividing spaces','The wall is painted white.','Tường','basic','Home'),
 ('floor','/flɔːr/','The lower surface of a room','The floor is made of wood.','Sàn nhà','basic','Home'),
-
--- ===== NÂNG CAO – KINH DOANH =====
 ('negotiate','/nɪˈɡoʊʃieɪt/','To discuss to reach an agreement','They negotiated the contract.','Đàm phán, thương lượng','advanced','Business'),
 ('revenue','/ˈrevənjuː/','Income a company receives','Revenue grew by 20% this year.','Doanh thu','advanced','Business'),
 ('profit','/ˈprɒfɪt/','Financial gain after expenses','The profit margin is very slim.','Lợi nhuận','advanced','Business'),
@@ -1464,8 +1442,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('benchmark','/ˈbentʃmɑːrk/','A standard for comparison','We use industry benchmarks.','Tiêu chuẩn tham chiếu','advanced','Business'),
 ('quota','/ˈkwoʊtə/','A fixed share or limit','The team exceeded their quota.','Hạn mức, chỉ tiêu','advanced','Business'),
 ('overhead','/ˈoʊvərhed/','Regular operating expenses','Reducing overhead improves profit.','Chi phí cố định','advanced','Business'),
-
--- ===== NÂNG CAO – CÔNG NGHỆ =====
 ('artificial intelligence','/ˌɑːrtɪˈfɪʃəl ɪnˈtelɪdʒəns/','Simulation of human intelligence by machines','AI is transforming industries.','Trí tuệ nhân tạo','advanced','Technology'),
 ('algorithm','/ˈælɡərɪðəm/','A set of rules for solving a problem','The search algorithm was updated.','Thuật toán','advanced','Technology'),
 ('database','/ˈdeɪtəbeɪs/','An organized collection of data','Customer data is in the database.','Cơ sở dữ liệu','advanced','Technology'),
@@ -1482,8 +1458,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('network','/ˈnetwɜːrk/','A system of connected computers','Our office network is fast.','Mạng máy tính','advanced','Technology'),
 ('firewall','/ˈfaɪərwɔːl/','A security system for networks','The firewall blocked the attack.','Tường lửa','advanced','Technology'),
 ('automation','/ˌɔːtəˈmeɪʃən/','Using technology to do tasks automatically','Factory automation increased output.','Tự động hóa','advanced','Technology'),
-
--- ===== NÂNG CAO – MÔI TRƯỜNG =====
 ('sustainable','/səˈsteɪnəbəl/','Not harming the environment','We need sustainable practices.','Bền vững','advanced','Environment'),
 ('renewable','/rɪˈnjuːəbəl/','Able to be replaced naturally','Solar is a renewable energy source.','Tái tạo được','advanced','Environment'),
 ('carbon footprint','/ˈkɑːrbən ˈfʊtprɪnt/','Total greenhouse gases by an individual','Reduce your carbon footprint.','Dấu chân carbon','advanced','Environment'),
@@ -1498,8 +1472,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('recycle','/ˌriːˈsaɪkəl/','To convert waste into reusable material','Please recycle plastic bottles.','Tái chế','advanced','Environment'),
 ('drought','/draʊt/','Prolonged period of low rainfall','The drought destroyed the harvest.','Hạn hán','advanced','Environment'),
 ('erosion','/ɪˈroʊʒən/','Wearing away by wind or water','Soil erosion threatens farmland.','Xói mòn','advanced','Environment'),
-
--- ===== NÂNG CAO – TÂM LÝ & CẢM XÚC =====
 ('anxiety','/æŋˈzaɪəti/','Feeling of worry or nervousness','She has anxiety about public speaking.','Lo lắng, lo âu','advanced','Psychology'),
 ('resilience','/rɪˈzɪliəns/','Ability to recover from difficulties','Resilience is key for success.','Sự kiên cường','advanced','Psychology'),
 ('empathy','/ˈempəθi/','Understanding others'' feelings','Good leaders show empathy.','Sự đồng cảm','advanced','Psychology'),
@@ -1510,8 +1482,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('procrastinate','/prəˈkræstɪneɪt/','To delay doing something','Stop procrastinating!','Trì hoãn','advanced','Psychology'),
 ('burnout','/ˈbɜːrnaʊt/','Exhaustion from overwork','She suffered burnout after a year of overtime.','Kiệt sức vì làm việc quá mức','advanced','Psychology'),
 ('introspection','/ˌɪntrəˈspekʃən/','Examination of one''s own thoughts','Introspection helps self-awareness.','Tự suy xét nội tâm','advanced','Psychology'),
-
--- ===== NÂNG CAO – GIÁO DỤC =====
 ('curriculum','/kəˈrɪkjʊləm/','Subjects comprising a course of study','The school updated its curriculum.','Chương trình giảng dạy','advanced','Education'),
 ('scholarship','/ˈskɒlərʃɪp/','A grant for educational purposes','She won a full scholarship to Oxford.','Học bổng','advanced','Education'),
 ('dissertation','/ˌdɪsəˈteɪʃən/','A long essay for a degree','Her dissertation was on AI ethics.','Luận văn, luận án','advanced','Education'),
@@ -1522,8 +1492,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('graduate','/ˈɡrædʒueɪt/','To complete a university course','She graduated with honours.','Tốt nghiệp','advanced','Education'),
 ('literacy','/ˈlɪtərəsi/','Ability to read and write','Digital literacy is essential.','Khả năng đọc viết','advanced','Education'),
 ('extracurricular','/ˌekstrəkəˈrɪkjʊlər/','Outside the regular curriculum','She is active in extracurricular activities.','Ngoại khóa','advanced','Education'),
-
--- ===== CẤP CAO – HỌC THUẬT =====
 ('paradigm','/ˈpærədaɪm/','A typical model or pattern','A paradigm shift in thinking.','Mô hình tư duy','premium','Academic'),
 ('hypothesis','/haɪˈpɒθɪsɪs/','A proposed explanation to be tested','The scientist tested the hypothesis.','Giả thuyết','premium','Academic'),
 ('empirical','/ɪmˈpɪrɪkəl/','Based on observation','We need empirical evidence.','Dựa trên thực nghiệm','premium','Academic'),
@@ -1539,8 +1507,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('ambiguous','/æmˈbɪɡjuəs/','Open to more than one interpretation','The instructions were ambiguous.','Mơ hồ','premium','Academic'),
 ('coherent','/koʊˈhɪərənt/','Logical and consistent','Give a coherent explanation.','Mạch lạc, nhất quán','premium','Academic'),
 ('contradict','/ˌkɒntrəˈdɪkt/','To deny or oppose','His actions contradict his words.','Mâu thuẫn, bác bỏ','premium','Academic'),
-
--- ===== CẤP CAO – IELTS =====
 ('alleviate','/əˈliːvieɪt/','To make suffering less severe','Exercise can alleviate stress.','Giảm nhẹ, làm dịu','premium','IELTS'),
 ('exacerbate','/ɪɡˈzæsərbeɪt/','To make a problem worse','The drought exacerbated food shortages.','Làm trầm trọng thêm','premium','IELTS'),
 ('proliferation','/prəˌlɪfəˈreɪʃən/','A rapid increase in number','The proliferation of smartphones changed society.','Sự phát triển mạnh mẽ','premium','IELTS'),
@@ -1566,8 +1532,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('phenomenon','/fɪˈnɒmɪnən/','A fact or event that is observable','Climate change is a global phenomenon.','Hiện tượng','premium','IELTS'),
 ('segregation','/ˌseɡrɪˈɡeɪʃən/','The separation of different groups','Racial segregation was abolished.','Sự phân biệt, tách biệt','premium','IELTS'),
 ('marginalize','/ˈmɑːrdʒɪnəlaɪz/','To treat as unimportant','Immigrants are often marginalized.','Gạt ra ngoài lề','premium','IELTS'),
-
--- ===== CẤP CAO – PHÁP LÝ & CHÍNH TRỊ =====
 ('legislation','/ˌledʒɪsˈleɪʃən/','Laws enacted by government','New legislation was passed.','Pháp luật, lập pháp','premium','Law & Politics'),
 ('constitution','/ˌkɒnstɪˈtjuːʃən/','Fundamental principles of a state','The right to free speech is in the constitution.','Hiến pháp','premium','Law & Politics'),
 ('jurisdiction','/ˌdʒʊərɪsˈdɪkʃən/','The authority to apply laws','This falls outside our jurisdiction.','Thẩm quyền','premium','Law & Politics'),
@@ -1576,8 +1540,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('treaty','/ˈtriːti/','A formal agreement between countries','They signed a trade treaty.','Hiệp ước, hiệp định','premium','Law & Politics'),
 ('amendment','/əˈmendmənt/','A change made to a law','The first amendment protects free speech.','Sửa đổi, điều chỉnh','premium','Law & Politics'),
 ('veto','/ˈviːtoʊ/','The power to reject a decision','The president used the veto.','Quyền phủ quyết','premium','Law & Politics'),
-
--- ===== CẤP CAO – Y KHOA =====
 ('diagnosis','/ˌdaɪəɡˈnoʊsɪs/','Identification of a disease','The diagnosis was confirmed.','Chẩn đoán bệnh','premium','Medical'),
 ('prognosis','/prɒɡˈnoʊsɪs/','The likely outcome of a disease','The prognosis for recovery is good.','Tiên lượng bệnh','premium','Medical'),
 ('symptom','/ˈsɪmptəm/','A sign of a disease','Fever is a common symptom.','Triệu chứng','premium','Medical'),
@@ -1588,8 +1550,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('immunity','/ɪˈmjuːnɪti/','The body''s resistance to disease','Vaccines build immunity.','Miễn dịch','premium','Medical'),
 ('pandemic','/pænˈdemɪk/','An outbreak across a wide area','COVID-19 was a global pandemic.','Đại dịch','premium','Medical'),
 ('pathogen','/ˈpæθədʒən/','A disease-causing microorganism','Bacteria can be pathogens.','Mầm bệnh','premium','Medical'),
-
--- ===== CẤP CAO – TRIẾT HỌC =====
 ('ideology','/ˌaɪdiˈɒlədʒi/','A system of ideas and beliefs','The party''s ideology is unclear.','Hệ tư tưởng','premium','Philosophy'),
 ('ethics','/ˈeθɪks/','Moral principles governing behavior','Business ethics are essential.','Đạo đức','premium','Philosophy'),
 ('pragmatic','/præɡˈmætɪk/','Dealing with things practically','Take a pragmatic approach.','Thực dụng, thực tế','premium','Philosophy'),
@@ -1599,8 +1559,6 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('dogma','/ˈdɒɡmə/','A principle held as undisputable','The church defended its dogma.','Giáo điều','premium','Philosophy'),
 ('egalitarian','/ɪˌɡælɪˈteəriən/','Believing in equal rights','He holds egalitarian views.','Theo chủ nghĩa bình đẳng','premium','Philosophy'),
 ('hegemony','/hɪˈdʒemənɪ/','Dominance of one group','US hegemony shaped the 20th century.','Bá quyền','premium','Philosophy'),
-
--- ===== CẤP CAO – VĂN HỌC =====
 ('metaphor','/ˈmetəfər/','Comparing unlike things','Time is money is a metaphor.','Ẩn dụ','premium','Literature'),
 ('irony','/ˈaɪrəni/','Saying the opposite of what you mean','It''s ironic that a fire station burned down.','Sự mỉa mai','premium','Literature'),
 ('satire','/ˈsætaɪər/','Using humour to criticise','The novel is a satire on politics.','Châm biếm','premium','Literature'),
@@ -1609,6 +1567,7 @@ INSERT IGNORE INTO vocabulary (word, pronunciation, definition, example, transla
 ('antagonist','/ænˈtæɡənɪst/','A character opposing the protagonist','The villain is the antagonist.','Nhân vật phản diện','premium','Literature'),
 ('allegory','/ˈæləɡɒri/','A story with a hidden meaning','Animal Farm is an allegory.','Ẩn dụ, ngụ ngôn','premium','Literature'),
 ('foreshadowing','/fɔːˈʃædoʊɪŋ/','Hints about what will happen later','The dark clouds were foreshadowing.','Điềm báo trước','premium','Literature');
+
 
 -- Bật lại kiểm tra khoá ngoại
 SET FOREIGN_KEY_CHECKS = 1;
